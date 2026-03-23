@@ -3,7 +3,7 @@ import { PokedexHomepage } from "./components/Pokedex";
 import { useState } from "react";
 
 function App() {
-	const [page] = useState('login')
+	const [page] = useState('homepage')
 	switch (page) {
 		case `login`:
 			return (
