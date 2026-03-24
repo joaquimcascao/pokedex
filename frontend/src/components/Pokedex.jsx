@@ -1,5 +1,6 @@
 import { Search } from "lucide-react";
 import { AuthButton } from "./AuthButton";
+import { TbPokeball } from "react-icons/tb";
 
 export const PokedexHomepage = () => {
 	return (
@@ -11,12 +12,15 @@ export const PokedexHomepage = () => {
 				<a href="/login">Login |</a>
 			</div>
 			<div className="flex items-center justify-center flex-col gap-2">
-				<h1 className="text-zinc-100 text-7xl">Pokédex</h1>
+				<div className="flex items-center gap-2">
+					<h1 className="text-zinc-100 text-6xl leading-none">Pokédex</h1>
+					<TbPokeball className="text-zinc-100 text-4xl relative top-1.5" />
+				</div>
 				<div className=" group flex bg-zinc-800 rounded-4xl items-center pl-3 hover:text-zinc-900 transition-all duration-300">
 					<Search className="text-zinc-100" />
 					<input type="text"
 						placeholder="Type a pokemon's name" className="text-zinc-100 py-2 px-4 w-64 outline-0" />
-					<AuthButton variant="minimal" onClick={onclick}>
+					<AuthButton variant="minimal">
 						Search
 					</AuthButton>
 				</div>

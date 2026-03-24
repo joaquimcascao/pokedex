@@ -1,11 +1,18 @@
 import { AuthLayout } from "./AuthLayout";
 import { AuthInput } from "./AuthInput";
 import { AuthButton } from "./AuthButton";
-import { Link } from "react-router-dom";
+import { TbPokeball } from "react-icons/tb";
 
 export const SignUpPage = () => {
     return (
-        <AuthLayout title="Sign up">
+        <AuthLayout
+                    title={
+                        <>
+                            Sign up
+                            <TbPokeball className="text-zinc-100 text-3xl" />
+                        </>
+                    }
+                >
             <AuthInput type="text" placeholder="Name" />
             <AuthInput type="email" placeholder="E-mail" />
             <AuthInput type="password" placeholder="Password" />
