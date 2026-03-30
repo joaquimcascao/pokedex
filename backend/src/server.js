@@ -13,11 +13,13 @@ app.post('/api/pokemon', async (req, res) => {
     if (!POKEMON_NAME) return res.status(400).json({ error: "Pokémon name is required" });
 
     try {
-        const POKEMON_RESPONSE = await fetch(`https://pokeapi.co/api/v2/pokemon/${POKEMON_NAME}`)
-        const SPECIES_RESPONSE = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${POKEMON_NAME}`)
+        const [POKEMON_RESPONSE, SPECIES_RESPONSE] = await Promise.all([
+            fetch(`https://pokeapi.co/api/v2/pokemon/${POKEMON_NAME}`),
+            fetch(`https://pokeapi.co/api/v2/pokemon-species/${POKEMON_NAME}`)
+        ])
 
-        if(!POKEMON_RESPONSE.ok || !SPECIES_RESPONSE.ok) {
-            return res.status(404).json({ error: `Pokemon not found`})
+        if (!POKEMON_RESPONSE.ok || !SPECIES_RESPONSE.ok) {
+            return res.status(404).json({ error: `Pokemon not found` })
         }
 
         const pokemonData = await POKEMON_RESPONSE.json()
@@ -25,15 +27,13 @@ app.post('/api/pokemon', async (req, res) => {
 
         const pokemonTypes = pokemonData.types.map(t => t.type.name)
 
-        const typeRelations = []
-
-
-        for (const type of pokemonTypes) {
-            const request = await fetch(`https://pokeapi.co/api/v2/type/${type}`)
-            const data = await request.json()
-            typeRelations.push(data)
-        }
-
+        const typeRelations = await Promise.all(
+            pokemonTypes.map(async (type) => {
+                const request = await fetch(`https://pokeapi.co/api/v2/type/${type}`)
+                return request.json()
+            })
+        )
+            
         return res.json({
             pokemon: pokemonData,
             species: speciesData,
@@ -42,7 +42,7 @@ app.post('/api/pokemon', async (req, res) => {
 
     } catch (e) {
         console.error("Server error:", e);
-        return res.status(500).json({ e: "Error fetching data from the PokéAPI" });
+        return res.status(500).json({ error: "Error fetching data from the PokéAPI" });
     }
 });
 

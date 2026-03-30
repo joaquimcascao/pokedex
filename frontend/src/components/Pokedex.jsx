@@ -8,12 +8,13 @@ import { SectionHeader } from "./SectionHeader";
 export const PokedexHomepage = () => {
 
 	const [query, setQuery] = useState("")
-	const [banner, setBanner] = useState("")
+	const [banner, setBanner] = useState(null)
 
 	const handleSearch = async (e) => {
 		e.preventDefault();
+
 		const data = await searchPokemon(query)
-		setBanner(data)
+		setBanner(data ?? null)
 	}
 
 	return (
@@ -75,18 +76,18 @@ export const PokedexHomepage = () => {
 								title={"Type"}
 								type={banner?.pokemon.types[0].type.name}
 							/>
-								<AtributteLayout
-									attribute={banner?.pokemon.types.map(t => t.type.name)}
-								/>
-							<SectionHeader 
+							<AtributteLayout
+								attribute={banner?.pokemon.types.map(t => t.type.name)}
+							/>
+							<SectionHeader
 								title={"Weakness:"}
 								type={banner?.typeRelations[0].damage_relations.double_damage_from[0].name}
 							/>
-								<AtributteLayout
-									attribute={banner?.typeRelations[0].damage_relations.double_damage_from.map(t => t.name)}
-								/>
-							</div>
+							<AtributteLayout
+								attribute={banner?.typeRelations[0].damage_relations.double_damage_from.map(t => t.name)}
+							/>
 						</div>
+					</div>
 				)}
 			</div>
 		</div>
