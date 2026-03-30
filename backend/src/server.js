@@ -22,10 +22,22 @@ app.post('/api/pokemon', async (req, res) => {
 
         const pokemonData = await POKEMON_RESPONSE.json()
         const speciesData = await SPECIES_RESPONSE.json()
-        
+
+        const pokemonTypes = pokemonData.types.map(t => t.type.name)
+
+        const typeRelations = []
+
+
+        for (const type of pokemonTypes) {
+            const request = await fetch(`https://pokeapi.co/api/v2/type/${type}`)
+            const data = await request.json()
+            typeRelations.push(data)
+        }
+
         return res.json({
             pokemon: pokemonData,
             species: speciesData,
+            typeRelations: typeRelations,
         })
 
     } catch (e) {
