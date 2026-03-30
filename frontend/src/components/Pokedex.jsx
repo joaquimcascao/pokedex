@@ -3,6 +3,7 @@ import { AuthButton } from "./AuthButton";
 import { useState } from "react";
 import { AtributteLayout } from "./AtributteLayout";
 import { searchPokemon } from "../services/pokemonService";
+import { SectionHeader } from "./SectionHeader";
 
 export const PokedexHomepage = () => {
 
@@ -70,16 +71,20 @@ export const PokedexHomepage = () => {
 									{banner?.species?.generation?.name.split("-").join(" ").toUpperCase()}
 								</h1>
 							</div>
-							<AtributteLayout
-								attribute={banner?.pokemon.types.map(t => t.type.name)}
+							<SectionHeader
+								title={"Type"}
 							/>
-							<div className="mt-3">
+								<AtributteLayout
+									attribute={banner?.pokemon.types.map(t => t.type.name)}
+								/>
+							<SectionHeader 
+								title={"Weakness:"}
+							/>
 								<AtributteLayout
 									attribute={banner?.typeRelations[0].damage_relations.double_damage_from.map(t => t.name)}
 								/>
 							</div>
 						</div>
-					</div>
 				)}
 			</div>
 		</div>
