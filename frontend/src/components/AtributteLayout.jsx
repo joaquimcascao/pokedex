@@ -1,5 +1,5 @@
-export const TypeLayout = ({ type, typeTwo, banner }) => {
-  const TYPE_ELEMENT = {
+export const AtributteLayout = ({ attribute }) => {
+  const ELEMENT = {
     electric: "bg-yellow-300",
     water: "bg-blue-600",
     dragon: "bg-blue-400",
@@ -20,24 +20,17 @@ export const TypeLayout = ({ type, typeTwo, banner }) => {
     fairy: "bg-pink-500",
   };
 
-  if (!banner || !banner.types) return null;
-
   return (
     <div className="flex flex-col">
       <div className="flex gap-2">
-        <span
-          className={`${TYPE_ELEMENT[type]} text-white font-bold text-sm uppercase px-3 py-1 rounded-full shadow-md`}
-        >
-          {type}
-        </span>
-
-        {banner.types.length > 1 && typeTwo && (
+        {attribute.map((type) => (
           <span
-            className={`${TYPE_ELEMENT[typeTwo]} text-white font-bold text-sm uppercase px-3 py-1 rounded-full shadow-md`}
+            key={type}
+            className={`${ELEMENT[type]} text-white font-bold text-sm uppercase px-3 py-1 rounded-full shadow-md`}
           >
-            {typeTwo}
+            {type}
           </span>
-        )}
+        ))}
       </div>
     </div>
   );

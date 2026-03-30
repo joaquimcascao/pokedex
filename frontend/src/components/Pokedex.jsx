@@ -1,20 +1,19 @@
 import { Search } from "lucide-react";
 import { AuthButton } from "./AuthButton";
 import { useState } from "react";
-import { TypeLayout } from "./TypeLayout";
+import { AtributteLayout } from "./AtributteLayout";
 import { searchPokemon } from "../services/pokemonService";
 
 export const PokedexHomepage = () => {
 
 	const [query, setQuery] = useState("")
-    const [banner, setBanner] = useState("")
+	const [banner, setBanner] = useState("")
 
 	const handleSearch = async (e) => {
-		e.preventDefault(); 
+		e.preventDefault();
 		const data = await searchPokemon(query)
 		setBanner(data)
 	}
-
 
 	return (
 		<div className="relative flex justify-center items-center min-h-screen bg-zinc-900 font-sans">
@@ -71,11 +70,14 @@ export const PokedexHomepage = () => {
 									{banner?.species?.generation?.name.split("-").join(" ").toUpperCase()}
 								</h1>
 							</div>
-							<TypeLayout
-								type={banner?.pokemon?.types[0]?.type?.name} 
-								typeTwo={banner?.pokemon?.types[1]?.type?.name}
-								banner={banner?.pokemon}
+							<AtributteLayout
+								attribute={banner?.pokemon.types.map(t => t.type.name)}
 							/>
+							<div className="mt-3">
+								<AtributteLayout
+									attribute={banner?.typeRelations[0].damage_relations.double_damage_from.map(t => t.name)}
+								/>
+							</div>
 						</div>
 					</div>
 				)}
