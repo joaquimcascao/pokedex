@@ -48,6 +48,10 @@ app.post('/api/pokemon', async (req, res) => {
     }
 });
 
+app.all('/keepalive', (req, res) => {
+  res.status(200).send('OK')
+})
+
 app.listen(PORT, () => {
     console.log(`Backend running at http://localhost:${PORT}`);
 });
