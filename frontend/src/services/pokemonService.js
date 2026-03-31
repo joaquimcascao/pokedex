@@ -16,7 +16,6 @@ export const searchPokemon = async (query) => {
 			throw new Error(errorData.error || "Could not find pokémon");
 		}
 		const data = await response.json()
-		console.log(data)
 		return data
 	} catch (e) {
 		console.log(`Error:`, e)

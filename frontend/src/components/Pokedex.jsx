@@ -9,12 +9,15 @@ export const PokedexHomepage = () => {
 
 	const [query, setQuery] = useState("")
 	const [banner, setBanner] = useState(null)
+	const [notFound, setNotFound] = useState(false)
 
 	const handleSearch = async (e) => {
 		e.preventDefault();
 
 		const data = await searchPokemon(query)
 		setBanner(data ?? null)
+		console.log(data)
+		setNotFound(!data)
 	}
 
 	return (
@@ -48,8 +51,12 @@ export const PokedexHomepage = () => {
 							Search
 						</AuthButton>
 					</form>
-
 				</div>
+				{notFound &&
+						<div className="flex-col items-center justify-center">
+							<h1 className="text-zinc-100 font-bold">Pokémon not found!</h1>
+						</div>
+					}
 				{banner && (
 					<div className="flex gap-5 p-5 border-2 rounded-lg bg-zinc-800/50 outline-0">
 						<div className="w-28 h-28 bg-zinc-900 rounded-lg outline-3">
