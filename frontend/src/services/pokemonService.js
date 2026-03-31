@@ -4,7 +4,7 @@ export const searchPokemon = async (query) => {
 	if (!query) return
 
 	try {
-		const response = await fetch("http://localhost:3001/api/pokemon", {
+		const response = await fetch(`${API_URL}/api/pokemon`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
