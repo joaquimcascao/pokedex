@@ -4,6 +4,7 @@ import { useState } from "react";
 import { AtributteLayout } from "./AtributteLayout";
 import { searchPokemon } from "../services/pokemonService";
 import { SectionHeader } from "./SectionHeader";
+import { SpritesLayout } from "./SpritesLayout";
 
 export const PokedexHomepage = () => {
 
@@ -53,19 +54,13 @@ export const PokedexHomepage = () => {
 					</form>
 				</div>
 				{notFound &&
-						<div className="flex-col items-center justify-center">
-							<h1 className="text-zinc-100 font-bold">Pokémon not found!</h1>
-						</div>
-					}
+					<div className="flex-col items-center justify-center">
+						<h1 className="text-zinc-100 font-bold">Pokémon not found!</h1>
+					</div>
+				}
 				{banner && (
 					<div className="flex gap-5 p-5 border-2 rounded-lg bg-zinc-800/50 outline-0">
-						<div className="w-28 h-28 bg-zinc-900 rounded-lg outline-3">
-							<img
-								src={banner?.pokemon.sprites?.front_default}
-								alt="pokemon"
-								className="w-full h-full object-contain"
-							/>
-						</div>
+						<SpritesLayout sprite={banner?.pokemon.sprites?.front_default} />
 						<div className="flex-col">
 							<div className="flex gap-2">
 								<h1 className="text-zinc-100 font-bold text-2xl">
@@ -93,6 +88,24 @@ export const PokedexHomepage = () => {
 							<AtributteLayout
 								attribute={banner?.typeRelations[0].damage_relations.double_damage_from.map(t => t.name)}
 							/>
+							{banner?.evolutionChain && banner.evolutionChain.length > 1 && (
+								<div className="mt-3 mb-2">
+									<SectionHeader
+										title={"Evolution Chain"}
+										type={banner.evolutionChain[0]?.types?.[0]?.type?.name}
+									/>
+									<div className="flex gap-3">
+										{banner.evolutionChain.map((evolution, index) => (
+											<SpritesLayout 
+												key={evolution.id || index}
+												variant="minimal" 
+												sprite={evolution?.sprites?.front_default}
+												name={evolution?.name}
+											/>
+										))}
+									</div>
+								</div>
+							)}
 						</div>
 					</div>
 				)}
