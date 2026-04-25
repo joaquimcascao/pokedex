@@ -5,6 +5,7 @@ import { AtributteLayout } from "./AtributteLayout";
 import { searchPokemon } from "../services/pokemonService";
 import { SectionHeader } from "./SectionHeader";
 import { SpritesLayout } from "./SpritesLayout";
+import { Link } from "react-router-dom";
 
 export const PokedexHomepage = () => {
 
@@ -25,9 +26,9 @@ export const PokedexHomepage = () => {
 		<div className="relative flex justify-center items-center min-h-screen bg-zinc-900 font-sans">
 
 			<div className="absolute top-6 right-8 flex gap-4 items-center text-zinc-400 font-medium">
-				<a href="/login" className="hover:text-zinc-100 transition-colors">Login</a>
+				<Link to="/login" className="hover:text-zinc-100 transition-colors">Login</Link>
 				<span className="text-zinc-700">|</span>
-				<a href="/signup" className="hover:text-zinc-100 transition-colors">Signup</a>
+				<Link to="/signup" className="hover:text-zinc-100 transition-colors">Signup</Link>
 			</div>
 
 			<div className="flex items-center justify-center flex-col gap-2">
@@ -96,9 +97,9 @@ export const PokedexHomepage = () => {
 									/>
 									<div className="flex gap-3">
 										{banner.evolutionChain.map((evolution, index) => (
-											<SpritesLayout 
+											<SpritesLayout
 												key={evolution.id || index}
-												variant="minimal" 
+												variant="minimal"
 												sprite={evolution?.sprites?.front_default}
 												name={evolution?.name}
 											/>
