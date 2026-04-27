@@ -1,11 +1,10 @@
 export const parseEvolutionChain = (evolutionData) => {
-    const chain = [];
-    let currentStep = evolutionData.chain;
+    const chain = []
+    let currentStep = evolutionData.chain
 
     while (currentStep) {
-        chain.push(currentStep.species.name);
-        // Pega apenas a primeira evolução da lista (comum na PokéAPI)
-        currentStep = currentStep.evolves_to[0];
+        chain.push(currentStep.species.name)
+        currentStep = currentStep.evolves_to[0]
     }
-    return chain;
-};
+    return chain
+}
