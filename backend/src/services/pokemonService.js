@@ -1,4 +1,13 @@
 import { parseEvolutionChain } from '../utils/evolutionParser.js';
+import express from 'express';
+import pokemonRoutes from './routes/pokemonRoutes.js';
+
+const app = express();
+
+app.all('/keepalive', (req, res) => res.status(200).send('OK'));
+app.use('/api', pokemonRoutes); 
+
+app.listen(process.env.PORT || 3000);
 
 export const fetchPokemonCompleteData = async (pokemonName) => {
     const name = pokemonName.toLowerCase();
